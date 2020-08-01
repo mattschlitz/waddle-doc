@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "8.0.0",
-  "description": "Angular 10 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "waddle-doc",
+  "version": "0.0.1",
+  "description": "Desktop application for documents",
+  "homepage": "https://github.com/mattschlitz/waddle-doc",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Matt Schlitz",
+    "email": "matthew.c.schlitz@gmail.com"
   },
   "keywords": [
     "angular",

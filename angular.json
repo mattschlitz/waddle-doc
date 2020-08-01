@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "waddle-doc": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -84,24 +84,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "waddle-doc:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "waddle-doc:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "browserTarget": "waddle-doc:build:web"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "waddle-doc:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "waddle-doc:build"
           }
         },
         "test": {
@@ -139,7 +139,7 @@
         }
       }
     },
-    "angular-electron-e2e": {
+    "waddle-doc-e2e": {
       "root": "e2e",
       "projectType": "application",
       "architect": {
@@ -158,7 +158,7 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "waddle-doc",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -167,5 +167,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": "6fd6e0ff-dde2-41f2-b4d4-2c48b4c64ded"
   }
 }
