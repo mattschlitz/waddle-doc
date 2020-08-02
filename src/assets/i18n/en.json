@@ -16,7 +16,8 @@
           "ADD_MORE_PAGES": "Add more",
           "COMPRESS_FILE": "Compress",
           "FORM_RESET": "Reset",
-          "CREATE_FILE": "Create"
+          "CREATE_FILE": "Create",
+          "BUILDING": "Building the PDF"
       },
       "DETAIL": {
         "TITLE": "Detail page !",
@@ -29,7 +30,11 @@
       "INVALID_RANGE": "Page Spec #{{spec}}: Range is invalid"
     },
     "PDF_CREATION": {
-      "GENERIC": "Error creating PDF: {{details}}"
+      "GENERIC": "Error creating PDF: {{details}}",
+      "TMP_FILE_ACCESS": "Error creating PDF: Unable to create temporary file"
     }
+  },
+  "SUCCESS": {
+    "PDF_CREATION": "Successfully created PDF"
   }
 }

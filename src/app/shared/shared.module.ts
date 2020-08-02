@@ -9,6 +9,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import {MatIconModule} from '@angular/material/icon'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
@@ -16,7 +18,17 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective],
-  imports: [CommonModule, TranslateModule, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatCheckboxModule, MatInputModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatCheckboxModule, MatInputModule]
+  imports: [
+    CommonModule, TranslateModule, FormsModule, 
+    
+    MatFormFieldModule, MatSelectModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatIconModule,
+    MatProgressSpinnerModule
+  ],
+  exports: [
+    TranslateModule, WebviewDirective, FormsModule, 
+    
+    MatFormFieldModule, MatSelectModule, MatButtonModule, MatCheckboxModule, MatInputModule, MatIconModule,
+    MatProgressSpinnerModule
+  ]
 })
 export class SharedModule {}

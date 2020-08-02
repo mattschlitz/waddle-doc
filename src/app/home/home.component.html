@@ -1,4 +1,10 @@
 <div class="container">
+  <div class="centered-container" *ngIf="building">
+    <h1>{{'PAGES.HOME.BUILDING'|translate}}</h1>
+    <mat-spinner></mat-spinner>
+  </div>
+  
+<div *ngIf="!building">
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
@@ -11,20 +17,24 @@
     <div class="files">
       <div *ngFor="let fileRow of fileRows" class="row">
 
+        <button mat-icon-button (click)="removeFileRow(fileRow)" [disabled]="building">
+          <mat-icon>X</mat-icon>
+        </button>
+
         <mat-form-field>
           <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
-          <input matInput [(ngModel)]="fileRow.alias" />
+          <input matInput [(ngModel)]="fileRow.alias" [disabled]="building" />
         </mat-form-field>
 
         <label>
-          <input (change)="changeFile(fileRow, $event.target.files[0]?.path || '')" type="file" accept=".pdf" />
+          <input (change)="changeFile(fileRow, $event.target.files[0]?.path || '')" type="file" accept=".pdf"  [disabled]="building"/>
         </label>
 
       </div>
     </div>
 
     <div class="section-footer">
-      <button mat-raised-button color="accent" (click)="addFileRow()">
+      <button mat-raised-button color="accent" (click)="addFileRow()" [disabled]="building">
         {{ 'PAGES.HOME.ADD_MORE_FILES' | translate }}
       </button>
     </div>
@@ -39,9 +49,13 @@
     <div class="pages">
       <div *ngFor="let pageRow of pageRows" class="row">
 
+        <button mat-icon-button (click)="removePageRow(pageRow)" [disabled]="building">
+          <mat-icon>X</mat-icon>
+        </button>
+
         <mat-form-field>
           <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
-          <mat-select [(ngModel)]="pageRow.fileRow">
+          <mat-select [(ngModel)]="pageRow.fileRow" [disabled]="building">
             <mat-option *ngFor="let fileRow of fileRows" [value]="fileRow">
               {{fileRow.alias}}
             </mat-option>
@@ -50,12 +64,12 @@
 
         <mat-form-field>
           <mat-label>{{ 'PAGES.HOME.PAGE_RANGE' | translate }}</mat-label>
-          <input matInput [(ngModel)]="pageRow.range" />
+          <input matInput [(ngModel)]="pageRow.range"  [disabled]="building"/>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>{{ 'PAGES.HOME.PAGE_ROTATION' | translate }}</mat-label>
-          <mat-select [(ngModel)]="pageRow.rotation">
+          <mat-select [(ngModel)]="pageRow.rotation" [disabled]="building">
             <mat-option *ngFor="let option of rotationOptions" [value]="option">
               {{ ('PAGES.HOME.PAGE_ROTATION_' + option) | translate }}
             </mat-option>
@@ -66,7 +80,7 @@
     </div>
     
     <div class="section-footer">
-      <button mat-raised-button color="accent" (click)="addPageRow()">
+      <button mat-raised-button color="accent" (click)="addPageRow()" [disabled]="building">
         {{ 'PAGES.HOME.ADD_MORE_PAGES' | translate }}
       </button>
     </div>
@@ -74,21 +88,31 @@
   
   <section class="form-actions">
     <div class="row">
-      <button mat-raised-button color="warn" (click)="resetForm()">
+      <button mat-raised-button color="warn" (click)="resetForm()" [disabled]="building">
         {{'PAGES.HOME.FORM_RESET' | translate}}
       </button>
-      <mat-checkbox class="example-margin" [(ngModel)]="compress">
+      <mat-checkbox class="example-margin" [(ngModel)]="compress" [disabled]="building">
         {{'PAGES.HOME.COMPRESS_FILE' | translate}}
       </mat-checkbox>
-      <button mat-raised-button color="primary" (click)="createFile()">
+      <button mat-raised-button color="primary" (click)="createFile()" [disabled]="building">
         {{'PAGES.HOME.CREATE_FILE' | translate}}
       </button>
     </div>
   </section>
 
   <h3 *ngIf="error" class="error-section">
+    <button mat-icon-button (click)="this.error = null">
+      <mat-icon>X</mat-icon>
+    </button>
     {{error.token|translate:error.values}}
   </h3>
 
-  
+  <h3 *ngIf="success" class="success-section">
+    <button mat-icon-button (click)="this.success = null">
+      <mat-icon>X</mat-icon>
+    </button>
+    {{success.token|translate:success.values}}
+  </h3>
+
+</div>
 </div>
