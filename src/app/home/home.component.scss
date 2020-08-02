@@ -1,3 +1,39 @@
-:host {
-  
+@import '~@angular/material/theming';
+$primary: mat-palette($mat-indigo);
+$accent:  mat-palette($mat-pink, A200, A100, A400);
+
+.container {
+    margin: 8px;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.section-header {
+    padding: 8px;
+    text-align: center;
+    background-color: mat-color($primary);
+    color: #fff;
+}
+
+.error-section {
+    padding: 8px;
+    background-color: #f44336;
+    color: #fff;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-footer {
+    display: flex;
+    justify-content: end;
+}
+
+.form-actions {
+    border-top: 1px solid mat-color($primary);
+    padding-top: 8px;
+    margin-top: 8px;
 }

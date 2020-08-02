@@ -1,12 +1,35 @@
 {
   "PAGES": {
       "HOME": {
-          "TITLE": "App works !",
-          "GO_TO_DETAIL": "Go to Detail"
+          "TITLE": "PDF Builder",
+          "FILES_SECTION": "Files",
+          "FILE_ALIAS": "Alias",
+          "FILE_LOCATION": "File",
+          "ADD_MORE_FILES": "Add more",
+          "PAGES_SECTION": "Pages",
+          "PAGE_RANGE": "Range",
+          "PAGE_ROTATION": "Rotation",
+          "PAGE_ROTATION_NONE": "None",
+          "PAGE_ROTATION_90": "90°",
+          "PAGE_ROTATION_180": "180°",
+          "PAGE_ROTATION_270": "270°",
+          "ADD_MORE_PAGES": "Add more",
+          "COMPRESS_FILE": "Compress",
+          "FORM_RESET": "Reset",
+          "CREATE_FILE": "Create"
       },
       "DETAIL": {
         "TITLE": "Detail page !",
         "BACK_TO_HOME": "Back to Home"
+    }
+  },
+  "ERROR": {
+    "PAGE_SPEC": {
+      "FILE_REQUIRED": "Page Spec #{{spec}}: File is required",
+      "INVALID_RANGE": "Page Spec #{{spec}}: Range is invalid"
+    },
+    "PDF_CREATION": {
+      "GENERIC": "Error creating PDF: {{details}}"
     }
   }
 }
