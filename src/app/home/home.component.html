@@ -62,12 +62,12 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_RANGE_HELP'|translate}}">
           <mat-label>{{ 'PAGES.HOME.PAGE_RANGE' | translate }}</mat-label>
           <input matInput [(ngModel)]="pageRow.range"  [disabled]="building"/>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_ROTATION_HELP'|translate}}">
           <mat-label>{{ 'PAGES.HOME.PAGE_ROTATION' | translate }}</mat-label>
           <mat-select [(ngModel)]="pageRow.rotation" [disabled]="building">
             <mat-option *ngFor="let option of rotationOptions" [value]="option">
