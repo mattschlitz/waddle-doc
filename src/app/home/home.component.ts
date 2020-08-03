@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import tmp from 'tmp';
-import path from 'path';
+import * as path from 'path';
 import { ElectronService } from '../core/services';
 
 interface FileRow {
