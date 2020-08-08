@@ -37,8 +37,14 @@ $accent:  mat-palette($mat-pink, A200, A100, A400);
 
 .row {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
+    .fields {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
 }
 
 .section-footer {

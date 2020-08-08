@@ -37,6 +37,6 @@
     }
   },
   "SUCCESS": {
-    "PDF_CREATION": "Successfully created PDF"
+    "PDF_CREATION": "Successfully created PDF: {{filePath}}"
   }
 }

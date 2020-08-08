@@ -1,10 +1,5 @@
 <div class="container">
-  <div class="centered-container" *ngIf="building">
-    <h1>{{'PAGES.HOME.BUILDING'|translate}}</h1>
-    <mat-spinner></mat-spinner>
-  </div>
-  
-<div *ngIf="!building">
+<div>
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
@@ -21,14 +16,16 @@
           <mat-icon>X</mat-icon>
         </button>
 
-        <mat-form-field>
-          <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
-          <input matInput [(ngModel)]="fileRow.alias" [disabled]="building" />
-        </mat-form-field>
-
-        <label>
-          <input (change)="changeFile(fileRow, $event.target.files[0]?.path || '')" type="file" accept=".pdf"  [disabled]="building"/>
-        </label>
+        <div class="fields">
+          <mat-form-field *ngIf="fileRows.length > 1">
+            <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
+            <input matInput [(ngModel)]="fileRow.alias" [disabled]="building" />
+          </mat-form-field>
+  
+          <label>
+            <input (change)="changeFile(fileRow, $event.target.files[0]?.path || '')" type="file" accept=".pdf"  [disabled]="building"/>
+          </label>
+        </div>
 
       </div>
     </div>
@@ -41,7 +38,7 @@
 
   </section>
 
-  <section class="pages-section">
+  <section class="pages-section" *ngIf="!building">
     <h2 class="section-header">
       {{ 'PAGES.HOME.PAGES_SECTION' | translate }}
     </h2>
@@ -53,28 +50,30 @@
           <mat-icon>X</mat-icon>
         </button>
 
-        <mat-form-field>
-          <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
-          <mat-select [(ngModel)]="pageRow.fileRow" [disabled]="building">
-            <mat-option *ngFor="let fileRow of fileRows" [value]="fileRow">
-              {{fileRow.alias}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_RANGE_HELP'|translate}}">
-          <mat-label>{{ 'PAGES.HOME.PAGE_RANGE' | translate }}</mat-label>
-          <input matInput [(ngModel)]="pageRow.range"  [disabled]="building"/>
-        </mat-form-field>
-
-        <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_ROTATION_HELP'|translate}}">
-          <mat-label>{{ 'PAGES.HOME.PAGE_ROTATION' | translate }}</mat-label>
-          <mat-select [(ngModel)]="pageRow.rotation" [disabled]="building">
-            <mat-option *ngFor="let option of rotationOptions" [value]="option">
-              {{ ('PAGES.HOME.PAGE_ROTATION_' + option) | translate }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="fields">
+          <mat-form-field  *ngIf="fileRows.length > 1">
+            <mat-label>{{ 'PAGES.HOME.FILE_ALIAS' | translate }}</mat-label>
+            <mat-select [(ngModel)]="pageRow.fileRow" [disabled]="building">
+              <mat-option *ngFor="let fileRow of fileRows" [value]="fileRow">
+                {{fileRow.alias}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_RANGE_HELP'|translate}}">
+            <mat-label>{{ 'PAGES.HOME.PAGE_RANGE' | translate }}</mat-label>
+            <input matInput [(ngModel)]="pageRow.range"  [disabled]="building"/>
+          </mat-form-field>
+  
+          <mat-form-field matTooltip="{{'PAGES.HOME.PAGE_ROTATION_HELP'|translate}}">
+            <mat-label>{{ 'PAGES.HOME.PAGE_ROTATION' | translate }}</mat-label>
+            <mat-select [(ngModel)]="pageRow.rotation" [disabled]="building">
+              <mat-option *ngFor="let option of rotationOptions" [value]="option">
+                {{ ('PAGES.HOME.PAGE_ROTATION_' + option) | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
       </div>
     </div>
@@ -86,7 +85,7 @@
     </div>
   </section>
   
-  <section class="form-actions">
+  <section class="form-actions" *ngIf="!building">
     <div class="row">
       <button mat-raised-button color="warn" (click)="resetForm()" [disabled]="building">
         {{'PAGES.HOME.FORM_RESET' | translate}}
@@ -98,6 +97,11 @@
         {{'PAGES.HOME.CREATE_FILE' | translate}}
       </button>
     </div>
+  </section>
+
+  <section class="centered-container" *ngIf="building">
+    <h1>{{'PAGES.HOME.BUILDING'|translate}}</h1>
+    <mat-spinner></mat-spinner>
   </section>
 
   <h3 *ngIf="error" class="error-section">
