@@ -5,7 +5,8 @@ import { ElectronService } from '../core/services';
 
 interface FileRow {
   alias: string
-  file: string
+  file: string,
+  size: number
 }
 
 interface PageRow {
@@ -44,17 +45,20 @@ export class HomeComponent implements OnInit {
     this.resetForm();
   }
 
-  changeFile(fileRow: FileRow, filename: string){
-    fileRow.file = filename;
-    if (filename && (!fileRow.alias || this.fileRows.length == 1)) {
-      fileRow.alias = path.basename(filename, '.pdf');
+  changeFile(fileRow: FileRow, file: {path: string, size: number}){
+    file = file || {path: '', size: 0};
+    fileRow.file = file.path;
+    fileRow.size = file.size;
+    if (file.path && (!fileRow.alias || this.fileRows.length == 1)) {
+      fileRow.alias = path.basename(file.path, '.pdf');
     }
   }
 
   addFileRow(){
     this.fileRows.push({
       alias: '',
-      file: ''
+      file: '',
+      size: 0
     });
   }
 
@@ -113,7 +117,7 @@ export class HomeComponent implements OnInit {
         let nextAlpha = 'A';
         const fileToLetter = {};
 
-        const pages = this.pageRows.map((pageRow, i) => {
+        const pages = this.pageRows.map((pageRow) => {
           const file = (pageRow.fileRow || defaultFileRow).file;
           if (!fileToLetter[file]) {
             fileToLetter[file] = nextAlpha;
@@ -126,9 +130,12 @@ export class HomeComponent implements OnInit {
             + ROTATION_TO_ARG_MAP[pageRow.rotation];
         });
 
+        // If the input is going to be the same as the output, we need to do special processing
+        let inputAsOutput = filePath in fileToLetter;
+
         let concatFile, concatFileName;
         try {
-          concatFile = this.compress
+          concatFile = this.compress || inputAsOutput
             ? tmp.fileSync({postfix: '.pdf'}) 
             : null;
           concatFileName = concatFile ? concatFile.name : filePath;
@@ -139,13 +146,21 @@ export class HomeComponent implements OnInit {
         }
 
         try {
-          this.execCommand("pdftk", [
-            ...Object.entries(fileToLetter).map(([file, letter]) => `${letter}=${file}`),
-            'cat',
-            ...pages,
-            'output',
-            concatFileName
-          ]);
+          // TODO: We have the file sizes so, presumably, we can warn the user if their pdf may take a while to generate
+
+          // If we're copying all of one file without rotation, just copy the file since it's faster
+          if (pages.length == 1 && pages[0] === 'A') {
+            this.copyFile(Object.keys(fileToLetter)[0], concatFileName);
+          } else {
+            this.execCommand("pdftk", [
+              ...Object.entries(fileToLetter).map(([file, letter]) => `${letter}=${file}`),
+              'cat',
+              ...pages,
+              'output',
+              concatFileName
+            ]);
+          }
+          
 
           if (this.compress) {
             this.execCommand("gs", [
@@ -159,6 +174,8 @@ export class HomeComponent implements OnInit {
               "-sOutputFile=" + filePath,
               concatFileName
             ]);
+          } else if(inputAsOutput) {
+            this.copyFile(concatFileName, filePath);
           }
           this.success = {token: "SUCCESS.PDF_CREATION", values: {filePath}};
         } finally {
@@ -194,6 +211,11 @@ export class HomeComponent implements OnInit {
     return range
       .replace(/\s/g, '')
       .replace('+', '-end')
+  }
+
+  private copyFile(source, destination){
+    console.log("COPYING ", source, " TO ", destination);
+    this.electronService.fs.copyFileSync(source, destination);
   }
 
   private execCommand(command, args){

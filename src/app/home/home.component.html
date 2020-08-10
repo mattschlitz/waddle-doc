@@ -1,5 +1,9 @@
 <div class="container">
-<div>
+  <section class="centered-container" *ngIf="building">
+    <h1>{{'PAGES.HOME.BUILDING'|translate}}</h1>
+    <mat-spinner></mat-spinner>
+  </section>
+<div [hidden]="building">
   <h1 class="title">
     {{ 'PAGES.HOME.TITLE' | translate }}
   </h1>
@@ -23,7 +27,7 @@
           </mat-form-field>
   
           <label>
-            <input (change)="changeFile(fileRow, $event.target.files[0]?.path || '')" type="file" accept=".pdf"  [disabled]="building"/>
+            <input (change)="changeFile(fileRow, $event.target.files[0])" type="file" accept=".pdf"  [disabled]="building"/>
           </label>
         </div>
 
@@ -38,7 +42,7 @@
 
   </section>
 
-  <section class="pages-section" *ngIf="!building">
+  <section class="pages-section">
     <h2 class="section-header">
       {{ 'PAGES.HOME.PAGES_SECTION' | translate }}
     </h2>
@@ -85,7 +89,7 @@
     </div>
   </section>
   
-  <section class="form-actions" *ngIf="!building">
+  <section class="form-actions">
     <div class="row">
       <button mat-raised-button color="warn" (click)="resetForm()" [disabled]="building">
         {{'PAGES.HOME.FORM_RESET' | translate}}
@@ -97,11 +101,6 @@
         {{'PAGES.HOME.CREATE_FILE' | translate}}
       </button>
     </div>
-  </section>
-
-  <section class="centered-container" *ngIf="building">
-    <h1>{{'PAGES.HOME.BUILDING'|translate}}</h1>
-    <mat-spinner></mat-spinner>
   </section>
 
   <h3 *ngIf="error" class="error-section">
